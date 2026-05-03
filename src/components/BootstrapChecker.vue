@@ -576,6 +576,97 @@
         </div>
       </section>
 
+      <!-- ───────────────────────────────── Navs & Pagination ─── -->
+      <section id="navs" class="card mb-8 shadow-sm scroll-mt">
+        <div class="card-header bg-body-tertiary fw-bold small text-uppercase py-3 px-5">Navs & Pagination / 導覽與分頁</div>
+        <div class="card-body p-7">
+          <div class="row g-7">
+            <!-- Tabs & Pills -->
+            <div class="col-md-6">
+              <div class="small fw-bold text-uppercase text-muted mb-4 border-bottom pb-2">Tabs & Pills / 分頁與膠囊</div>
+              <ul class="nav nav-tabs mb-4">
+                <li class="nav-item"><a class="nav-link active" href="#">Active</a></li>
+                <li class="nav-item"><a class="nav-link" href="#">Link</a></li>
+                <li class="nav-item"><a class="nav-link disabled" href="#">Disabled</a></li>
+              </ul>
+              <ul class="nav nav-pills">
+                <li class="nav-item"><a class="nav-link active" href="#">Active</a></li>
+                <li class="nav-item"><a class="nav-link border mx-1" href="#">Link</a></li>
+                <li class="nav-item"><a class="nav-link disabled" href="#">Disabled</a></li>
+              </ul>
+            </div>
+            
+            <!-- Pagination -->
+            <div class="col-md-6">
+              <div class="small fw-bold text-uppercase text-muted mb-4 border-bottom pb-2">Pagination / 分頁按鈕</div>
+              <nav aria-label="Page navigation example">
+                <ul class="pagination mb-4">
+                  <li class="page-item disabled"><a class="page-link" href="#">Previous</a></li>
+                  <li class="page-item"><a class="page-link" href="#">1</a></li>
+                  <li class="page-item active"><a class="page-link" href="#">2</a></li>
+                  <li class="page-item"><a class="page-link" href="#">3</a></li>
+                  <li class="page-item"><a class="page-link" href="#">Next</a></li>
+                </ul>
+                <ul class="pagination pagination-sm">
+                  <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                  <li class="page-item"><a class="page-link" href="#">2</a></li>
+                </ul>
+              </nav>
+            </div>
+
+            <!-- Breadcrumbs -->
+            <div class="col-12 mt-2">
+              <div class="small fw-bold text-uppercase text-muted mb-4 border-bottom pb-2">Breadcrumbs / 麵包屑</div>
+              <nav aria-label="breadcrumb">
+                <ol class="breadcrumb bg-body-secondary p-3 rounded-3 shadow-sm">
+                  <li class="breadcrumb-item"><a href="#">首頁</a></li>
+                  <li class="breadcrumb-item"><a href="#">元件庫</a></li>
+                  <li class="breadcrumb-item active" aria-current="page">當前頁面</li>
+                </ol>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ───────────────────────────────── Dropdowns & Input Groups ─── -->
+      <section id="dropdowns" class="card mb-8 shadow-sm scroll-mt">
+        <div class="card-header bg-body-tertiary fw-bold small text-uppercase py-3 px-5">Dropdowns & Input Groups / 下拉與群組</div>
+        <div class="card-body p-7">
+          <div class="row g-7">
+            <!-- Dropdowns -->
+            <div class="col-md-5">
+              <div class="small fw-bold text-uppercase text-muted mb-4 border-bottom pb-2">Dropdown Menu / 下拉選單樣式</div>
+              <div class="dropdown-menu position-static d-block shadow-sm border-2">
+                <h6 class="dropdown-header">選單標題</h6>
+                <a class="dropdown-item active" href="#">作用中的項目</a>
+                <a class="dropdown-item" href="#">一般項目樣式</a>
+                <hr class="dropdown-divider">
+                <a class="dropdown-item disabled" href="#">禁用的項目</a>
+              </div>
+            </div>
+
+            <!-- Input Groups -->
+            <div class="col-md-7">
+              <div class="small fw-bold text-uppercase text-muted mb-4 border-bottom pb-2">Input Groups / 輸入框群組</div>
+              <div class="input-group mb-4">
+                <span class="input-group-text bg-primary text-white border-primary">@</span>
+                <input type="text" class="form-control" placeholder="Username">
+              </div>
+              <div class="input-group mb-4">
+                <input type="text" class="form-control" placeholder="Recipient's username">
+                <button class="btn btn-outline-primary" type="button">按鈕</button>
+              </div>
+              <div class="input-group">
+                <span class="input-group-text">$</span>
+                <input type="text" class="form-control" aria-label="Amount (to the nearest dollar)">
+                <span class="input-group-text">.00</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       <!-- ───────────────────────────────── Progress & Spinners ─── -->
       <div class="row g-8">
         <div class="col-md-7">
@@ -727,6 +818,8 @@ const componentItems = [
   { id: 'cards', label: '卡片元件' },
   { id: 'tables', label: '表格元件' },
   { id: 'list-group', label: '清單群組' },
+  { id: 'navs', label: '導覽與分頁' },
+  { id: 'dropdowns', label: '下拉與群組' },
   { id: 'accordion', label: '手風琴' },
   { id: 'progress', label: '進度條' },
   { id: 'spinners', label: '載入動畫' },
