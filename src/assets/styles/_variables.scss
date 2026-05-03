@@ -1,0 +1,150 @@
+$orange-50: #FFEACFFF;
+$orange-100: #FFD4B6FF;
+$orange-200: #FFBE98FF;
+$orange-300: #E79C71FF;
+$orange-400: #CE7B48FF;
+$orange-500: #B85704FF;
+$orange-600: #9F3400FF;
+$orange-700: #7F1000FF;
+$orange-800: #5E0000FF;
+$orange-900: #3C0000FF;
+$orange-950: #1D0000FF;
+$grey-50: #FEF3EDFF;
+$grey-100: #F1E5E0FF;
+$grey-200: #DDD2CCFF;
+$grey-300: #C6BBB6FF;
+$grey-400: #A79C97FF;
+$grey-500: #887E79FF;
+$grey-600: #6B615CFF;
+$grey-700: #4F4641FF;
+$grey-800: #342C27FF;
+$grey-900: #1C1410FF;
+$grey-950: #100906FF;
+$green-50: #EAFAECFF;
+$green-100: #D6F0D7FF;
+$green-200: #BBE0BDFF;
+$green-300: #9FCBA1FF;
+$green-400: #7AAE7EFF;
+$green-500: #5C8F60FF;
+$green-600: #407144FF;
+$green-700: #2A522EFF;
+$green-800: #17361AFF;
+$green-900: #071B09FF;
+$green-950: #040E05FF;
+$yellow-50: #FBF5E3FF;
+$yellow-100: #F1E8C9FF;
+$yellow-200: #E1D4A8FF;
+$yellow-300: #CDBE88FF;
+$yellow-400: #B09E5EFF;
+$yellow-500: #917F40FF;
+$yellow-600: #736220FF;
+$yellow-700: #55470FFF;
+$yellow-800: #382D01FF;
+$yellow-900: #1C1500FF;
+$yellow-950: #0F0B01FF;
+$red-50: #FFEEF4FF;
+$red-100: #FFDCE6FF;
+$red-200: #F8C4D1FF;
+$red-300: #E8AABAFF;
+$red-400: #CD879AFF;
+$red-500: #AC6A7CFF;
+$red-600: #8C4D5FFF;
+$red-700: #683544FF;
+$red-800: #461F2BFF;
+$red-900: #260D14FF;
+$red-950: #14070AFF;
+$cyan-50: #E2FAFFFF;
+$cyan-100: #C7F0FEFF;
+$cyan-200: #A6DFF2FF;
+$cyan-300: #84CAE1FF;
+$cyan-400: #56ACC6FF;
+$cyan-500: #348DA7FF;
+$cyan-600: #016F88FF;
+$cyan-700: #005165FF;
+$cyan-800: #003444FF;
+$cyan-900: #001A24FF;
+$cyan-950: #000E13FF;
+
+$white: #FFFFFFFF;
+$gray-100: #F8F9FAFF;
+$gray-200: #E9ECEFFF;
+$gray-300: #DEE2E6FF;
+$gray-400: #CED4DAFF;
+$gray-500: #ADB5BDFF;
+$gray-600: #6C757DFF;
+$gray-700: #495057FF;
+$gray-800: #343A40FF;
+$gray-900: #212529FF;
+$black: #000000FF;
+$primary-text-emphasis: $orange-700;
+$primary-bg-subtle: $orange-100;
+$primary-border-subtle: $orange-200;
+$secondary-text-emphasis: $gray-700;
+$secondary-bg-subtle: $gray-100;
+$secondary-border-subtle: $gray-200;
+$success-text-emphasis: $green-700;
+$success-bg-subtle: $green-100;
+$success-border-subtle: $green-200;
+$info-text-emphasis: $cyan-700;
+$info-bg-subtle: $cyan-100;
+$info-border-subtle: $cyan-200;
+$warning-text-emphasis: $yellow-700;
+$warning-bg-subtle: $yellow-100;
+$warning-border-subtle: $yellow-200;
+$danger-text-emphasis: $red-700;
+$danger-bg-subtle: $red-100;
+$danger-border-subtle: $red-200;
+$light-text-emphasis: $gray-700;
+$light-bg-subtle: $gray-100;
+$light-border-subtle: $gray-200;
+$dark-text-emphasis: $gray-700;
+$dark-bg-subtle: $gray-400;
+$dark-border-subtle: $gray-500;
+$body-color: $gray-900;
+$body-bg: $white;
+$body-secondary-color: $body-color;
+$body-secondary-bg: $gray-200;
+$body-tertiary-color: $body-color;
+$body-tertiary-bg: $gray-100;
+$primary: $orange-500;
+$secondary: $grey-600;
+$success: $green-500;
+$info: $cyan-500;
+$warning: $yellow-500;
+$danger: $red-500;
+$light: $gray-100;
+$dark: $gray-900;
+$link-color: $primary;
+$link-hover-color: $orange-600;
+$component-active-color: $white;
+$component-active-bg: $primary;
+$border-radius-sm: 4px;
+$border-radius: 6px;
+$border-radius-lg: 8px;
+$border-radius-xl: 16px;
+$border-radius-xxl: 32px;
+$border-radius-pill: 800px;
+
+/* #region 間距系統 - 自訂 Utility Classes 的間距大小 */
+$spacer: 1rem;
+$spacers: (
+  0: 0,
+  1: 1px,
+  2: 2px,
+  3: 4px,
+  4: 8px,
+  5: 16px,
+  6: 24px,
+  7: 32px,
+  8: 40px,
+  9: 48px,
+  10: 64px,
+  );
+  /* #endregion */
+  
+  /* #region 陰影設定 - 定義盒陰影深度與顏色 */
+  $box-shadow:                  0 .5rem 1rem rgba($black, .15) !default;
+  $box-shadow-sm:               0 .125rem .25rem rgba($black, .075) !default;
+  $box-shadow-lg:               0 1rem 3rem rgba($black, .175) !default;
+  $box-shadow-inset:            inset 0 1px 2px rgba($black, .075) !default;
+  /* #endregion */
