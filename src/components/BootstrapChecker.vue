@@ -75,7 +75,12 @@
       <!-- ───────────────────────────────── Typography ─── -->
       <section id="typography" class="card mb-8 shadow-sm scroll-mt">
         <div class="card-header bg-body-tertiary fw-bold small text-uppercase py-3 px-5">Typography / 標題</div>
-        <div class="card-body p-7">
+        <div class="card-body p-7 position-relative">
+          <!-- Hidden elements for White/Black color extraction -->
+          <div class="d-none">
+            <div id="swatch-white" class="text-white"></div>
+            <div id="swatch-black" class="text-black"></div>
+          </div>
           <h1 class="mb-4">H1 — 主要標題 Heading 1</h1>
           <h2 class="mb-4">H2 — 次要標題 Heading 2</h2>
           <h3 class="mb-3">H3 — 三級標題 Heading 3</h3>
@@ -252,7 +257,7 @@
         <div class="card-header bg-body-tertiary fw-bold small text-uppercase py-3 px-5">Buttons / 按鈕</div>
         <div class="card-body p-7">
           <div class="mb-7">
-            <div class="small fw-bold text-uppercase text-muted mb-4 border-bottom pb-2">按鈕顏色與外框 (Solid & Outline)</div>
+            <div class="small fw-bold text-uppercase text-muted mb-4 border-bottom pb-2">按鈕顏色、外框與連結 (Solid, Outline & Link)</div>
             <div class="d-flex flex-wrap gap-4">
               <button v-for="color in themeColors" :key="color.name" :class="`btn btn-${color.name}`" class="px-4">
                 {{ color.label }}
@@ -260,6 +265,11 @@
             </div>
             <div class="d-flex flex-wrap gap-4 mt-4">
               <button v-for="color in themeColors" :key="color.name" :class="`btn btn-outline-${color.name}`" class="px-4">
+                {{ color.label }}
+              </button>
+            </div>
+            <div class="d-flex flex-wrap gap-4 mt-4">
+              <button v-for="color in themeColors" :key="color.name" :class="['btn btn-link', 'link-' + color.name]" class="px-4">
                 {{ color.label }}
               </button>
             </div>
@@ -273,49 +283,91 @@
             </div>
           </div>
           <div>
-            <div class="small fw-bold text-uppercase text-muted mb-4 border-bottom pb-2">按鈕狀態 (States)</div>
-            <div class="row g-4">
-              <div v-for="state in buttonStates" :key="state.id" class="col-md-4">
-                <div class="p-4 border rounded-3 bg-body-tertiary h-100">
-                  <div class="d-flex justify-content-center mb-4" style="min-height: 45px;">
-                    <button :id="`btn-state-${state.id}`" class="btn px-4" :class="state.class">
-                      <span v-if="state.hasSpinner" class="spinner-border spinner-border-sm me-2"></span>
-                      {{ state.label }}
-                    </button>
-                  </div>
-                  
-                  <div class="small">
-                    <div class="mb-3">
-                      <div class="fw-bold mb-1 d-flex justify-content-between">
-                        <span>Background</span>
-                        <code class="text-primary">{{ buttonRegistry[state.id]?.bg }}</code>
-                      </div>
-                      <div class="mb-2">
-                        <small class="text-muted">Match: </small>
-                        <span class="badge bg-secondary-subtle text-secondary-emphasis border small fw-normal">
-                          {{ buttonRegistry[state.id]?.bgMatch }}
-                        </span>
-                      </div>
-                      <div class="text-muted opacity-75 font-monospace" style="font-size: 0.7rem;">
-                        CSS: {{ state.cssVars[0] }}<br>
-                        SCSS: {{ state.scssVars[0] }}
-                      </div>
+            <div class="small fw-bold text-uppercase text-muted mb-4 border-bottom pb-2">按鈕狀態矩陣 (States Matrix)</div>
+            <div v-for="type in buttonTypes" :key="type.id" class="mb-6">
+              <h6 class="mb-4 text-primary fw-bold">{{ type.label }} Variant</h6>
+              <div class="row g-4">
+                <div v-for="state in buttonStates" :key="state.id" class="col-xl col-md-4 col-sm-6">
+                  <div class="p-4 border rounded-3 bg-body-tertiary h-100">
+                    <div class="d-flex justify-content-center mb-4" style="min-height: 45px;">
+                      <button :id="`btn-state-${type.id}-${state.id}`" class="btn px-4" :class="[type.class, state.class]">
+                        <span v-if="state.hasSpinner" class="spinner-border spinner-border-sm me-2"></span>
+                        {{ state.label }}
+                      </button>
                     </div>
                     
-                    <div>
-                      <div class="fw-bold mb-1 d-flex justify-content-between">
-                        <span>Border</span>
-                        <code class="text-primary">{{ buttonRegistry[state.id]?.border }}</code>
+                    <div class="small">
+                      <!-- Background Color -->
+                      <div class="mb-3">
+                        <div class="fw-bold mb-1 d-flex justify-content-between">
+                          <span>Background</span>
+                          <div class="text-end">
+                            <code :class="buttonRegistry[`${type.id}-${state.id}`]?.bg === 'Transparent' ? 'text-muted' : 'text-primary'">
+                              {{ buttonRegistry[`${type.id}-${state.id}`]?.bg }}
+                            </code>
+                            <div v-if="buttonRegistry[`${type.id}-${state.id}`]?.bgAlpha !== '1' && buttonRegistry[`${type.id}-${state.id}`]?.bg !== 'Transparent'" class="small text-muted" style="font-size: 0.65rem;">
+                              Alpha: {{ buttonRegistry[`${type.id}-${state.id}`]?.bgAlpha }}
+                            </div>
+                          </div>
+                        </div>
+                        <div class="mb-2">
+                          <small class="text-muted">Match: </small>
+                          <span class="badge bg-secondary-subtle text-secondary-emphasis border small fw-normal">
+                            {{ buttonRegistry[`${type.id}-${state.id}`]?.bgMatch }}
+                          </span>
+                        </div>
+                        <div class="text-muted opacity-75 font-monospace" style="font-size: 0.7rem;">
+                          CSS: {{ state.cssVars[0] }}<br>
+                          SCSS: {{ state.scssVars[0] }}
+                        </div>
                       </div>
-                      <div class="mb-2">
-                        <small class="text-muted">Match: </small>
-                        <span class="badge bg-secondary-subtle text-secondary-emphasis border small fw-normal">
-                          {{ buttonRegistry[state.id]?.borderMatch }}
-                        </span>
+
+                      <!-- Text Color -->
+                      <div class="mb-3 pt-3 border-top">
+                        <div class="fw-bold mb-1 d-flex justify-content-between">
+                          <span>Text Color</span>
+                          <div class="text-end">
+                            <code class="text-primary">{{ buttonRegistry[`${type.id}-${state.id}`]?.text }}</code>
+                            <div v-if="buttonRegistry[`${type.id}-${state.id}`]?.textAlpha !== '1'" class="small text-muted" style="font-size: 0.65rem;">
+                              Alpha: {{ buttonRegistry[`${type.id}-${state.id}`]?.textAlpha }}
+                            </div>
+                          </div>
+                        </div>
+                        <div class="mb-2">
+                          <small class="text-muted">Match: </small>
+                          <span class="badge bg-secondary-subtle text-secondary-emphasis border small fw-normal">
+                            {{ buttonRegistry[`${type.id}-${state.id}`]?.textMatch }}
+                          </span>
+                        </div>
+                        <div class="text-muted opacity-75 font-monospace" style="font-size: 0.7rem;">
+                          CSS: {{ state.cssVars[2] }}<br>
+                          SCSS: {{ state.scssVars[2] }}
+                        </div>
                       </div>
-                      <div class="text-muted opacity-75 font-monospace" style="font-size: 0.7rem;">
-                        CSS: {{ state.cssVars[1] }}<br>
-                        SCSS: {{ state.scssVars[1] }}
+                      
+                      <!-- Border Color -->
+                      <div class="mb-3 pt-3 border-top">
+                        <div class="fw-bold mb-1 d-flex justify-content-between">
+                          <span>Border</span>
+                          <code class="text-primary">{{ buttonRegistry[`${type.id}-${state.id}`]?.border }}</code>
+                        </div>
+                        <div class="mb-2">
+                          <small class="text-muted">Match: </small>
+                          <span class="badge bg-secondary-subtle text-secondary-emphasis border small fw-normal">
+                            {{ buttonRegistry[`${type.id}-${state.id}`]?.borderMatch }}
+                          </span>
+                        </div>
+                        <div class="text-muted opacity-75 font-monospace" style="font-size: 0.7rem;">
+                          CSS: {{ state.cssVars[1] }}<br>
+                          SCSS: {{ state.scssVars[1] }}
+                        </div>
+                      </div>
+
+                      <div class="pt-2 border-top">
+                        <div class="fw-bold mb-1 d-flex justify-content-between">
+                          <span>Opacity</span>
+                          <code class="text-info">{{ buttonRegistry[`${type.id}-${state.id}`]?.opacity }}</code>
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -794,10 +846,18 @@ const shadows = [
   { class: "shadow-lg", var: "$box-shadow-lg" },
 ];
 
+const buttonTypes = [
+  { id: 'solid', label: 'Solid', class: 'btn-primary' },
+  { id: 'outline', label: 'Outline', class: 'btn-outline-primary' },
+  { id: 'link', label: 'Link', class: 'btn-link' }
+];
+
 const buttonStates = [
-  { id: 'active', label: 'Active', class: 'btn-primary active border-3', cssVars: ['--bs-btn-active-bg', '--bs-btn-active-border-color'], scssVars: ['$btn-active-bg', '$btn-active-border-color'] },
-  { id: 'disabled', label: 'Disabled', class: 'btn-primary disabled', cssVars: ['--bs-btn-disabled-bg', '--bs-btn-disabled-border-color'], scssVars: ['$btn-disabled-bg', '$btn-disabled-border-color'] },
-  { id: 'loading', label: 'Loading', class: 'btn-primary', hasSpinner: true, cssVars: ['--bs-btn-bg', '--bs-btn-border-color'], scssVars: ['$primary', '$primary'] }
+  { id: 'normal', label: 'Normal', class: '', cssVars: ['--bs-btn-bg', '--bs-btn-border-color', '--bs-btn-color'], scssVars: ['$primary', '$primary', '#ffffff'] },
+  { id: 'hover', label: 'Hover', class: 'hover-state', cssVars: ['--bs-btn-hover-bg', '--bs-btn-hover-border-color', '--bs-btn-hover-color'], scssVars: ['$btn-hover-bg', '$btn-hover-border-color', '$btn-hover-color'] },
+  { id: 'active', label: 'Active', class: 'active border-3', cssVars: ['--bs-btn-active-bg', '--bs-btn-active-border-color', '--bs-btn-active-color'], scssVars: ['$btn-active-bg', '$btn-active-border-color', '$btn-active-color'] },
+  { id: 'disabled', label: 'Disabled', class: 'disabled', cssVars: ['--bs-btn-disabled-bg', '--bs-btn-disabled-border-color', '--bs-btn-disabled-color'], scssVars: ['$btn-disabled-bg', '$btn-disabled-border-color', '$btn-disabled-color'] },
+  { id: 'loading', label: 'Loading', class: '', hasSpinner: true, cssVars: ['--bs-btn-bg', '--bs-btn-border-color', '--bs-btn-color'], scssVars: ['$primary', '$primary', '#ffffff'] }
 ];
 
 const coreItems = [
@@ -882,14 +942,30 @@ const rgbToHex = (r, g, b) => {
   return "#" + [r, g, b].map(x => parseInt(x).toString(16).padStart(2, '0')).join("").toUpperCase();
 };
 
-const extractColor = (id) => {
+const parseColor = (colorStr) => {
+  if (!colorStr || colorStr === "rgba(0, 0, 0, 0)" || colorStr === "transparent") {
+    return { hex: "Transparent", alpha: "0" };
+  }
+  const rgba = colorStr.match(/^rgba?\((\d+),\s*(\d+),\s*(\d+)(?:,\s*([\d.]+))?\)/);
+  return rgba ? { 
+    hex: rgbToHex(rgba[1], rgba[2], rgba[3]),
+    alpha: rgba[4] || "1"
+  } : { hex: "N/A", alpha: "1" };
+};
+
+const extractColor = (id, prop = null) => {
   const el = document.getElementById(id);
-  if (!el) return { hex: "N/A" };
+  if (!el) return { hex: "N/A", alpha: "1" };
   const style = window.getComputedStyle(el);
+  
+  if (prop) {
+    return parseColor(style[prop]);
+  }
+  
+  // Legacy fallback behavior for swatches
   const bg = style.backgroundColor;
   const colorStr = bg && bg !== "rgba(0, 0, 0, 0)" && bg !== "transparent" ? bg : style.color;
-  const rgba = colorStr.match(/^rgba?\((\d+),\s*(\d+),\s*(\d+)/);
-  return rgba ? { hex: rgbToHex(rgba[1], rgba[2], rgba[3]) } : { hex: "N/A" };
+  return parseColor(colorStr);
 };
 
 const extractStyle = (id, prop) => {
@@ -903,6 +979,10 @@ const updateRegistry = () => {
   const rsRegistry = {};
   const bRegistry = {};
   
+  // Extract White and Black first
+  registry['white'] = extractColor('swatch-white');
+  registry['black'] = extractColor('swatch-black');
+
   themeColors.forEach(color => {
     registry[`theme-${color.name}`] = extractColor(`swatch-${color.name}`);
     registry[`subtle-${color.name}`] = extractColor(`swatch-${color.name}-subtle`);
@@ -917,31 +997,53 @@ const updateRegistry = () => {
   shadows.forEach(s => rsRegistry[`shadow-${s.class}`] = extractStyle(`shadow-sample-${s.class}`, 'boxShadow'));
 
   const findMatch = (hex) => {
-    if (!hex || hex === 'N/A') return 'none';
+    if (!hex || hex === 'N/A' || hex === 'Transparent') return 'none';
+    
+    // Check fundamental colors first
+    if (hex === registry['white']?.hex) return 'white';
+    if (hex === registry['black']?.hex) return 'black';
+
+    let match = 'none';
     for (const [key, value] of Object.entries(registry)) {
-      if (key.startsWith('base-') && value.hex === hex) {
-        return key.replace('base-', '');
+      if (value.hex === hex) {
+        // Prefer theme names or base scale names, stripping prefixes
+        const cleanName = key.replace('theme-', '').replace('base-', '').replace('subtle-', '(subtle) ');
+        
+        // If we found a base scale or theme name, use it
+        if (!key.includes('subtle-')) {
+          return cleanName;
+        }
+        match = cleanName; // Fallback to subtle if no solid match found yet
       }
     }
-    return 'none';
+    return match;
   };
 
-  buttonStates.forEach(state => {
-    const bgHex = extractColor(`btn-state-${state.id}`).hex;
-    let borderHex = extractStyle(`btn-state-${state.id}`, 'borderColor');
-    
-    // Convert border color to hex if it's RGB
-    if (borderHex.startsWith('rgb')) {
-      const rgba = borderHex.match(/^rgba?\((\d+),\s*(\d+),\s*(\d+)/);
-      if (rgba) borderHex = rgbToHex(rgba[1], rgba[2], rgba[3]);
-    }
+  buttonTypes.forEach(type => {
+    buttonStates.forEach(state => {
+      const elementId = `btn-state-${type.id}-${state.id}`;
+      const bgData = extractColor(elementId, 'backgroundColor');
+      const textData = extractColor(elementId, 'color');
+      
+      let borderHex = extractStyle(elementId, 'borderColor');
+      // Convert border color to hex if it's RGB
+      if (borderHex.startsWith('rgb')) {
+        const rgba = borderHex.match(/^rgba?\((\d+),\s*(\d+),\s*(\d+)/);
+        if (rgba) borderHex = rgbToHex(rgba[1], rgba[2], rgba[3]);
+      }
 
-    bRegistry[state.id] = {
-      bg: bgHex,
-      border: borderHex,
-      bgMatch: findMatch(bgHex),
-      borderMatch: findMatch(borderHex)
-    };
+      bRegistry[`${type.id}-${state.id}`] = {
+        bg: bgData.hex,
+        bgAlpha: bgData.alpha,
+        text: textData.hex,
+        textAlpha: textData.alpha,
+        border: borderHex,
+        bgMatch: findMatch(bgData.hex),
+        textMatch: findMatch(textData.hex),
+        borderMatch: findMatch(borderHex),
+        opacity: extractStyle(elementId, 'opacity')
+      };
+    });
   });
 
   colorRegistry.value = registry;
@@ -968,5 +1070,26 @@ onMounted(() => {
   top: 1rem;
   right: 1rem;
   z-index: 2000; /* Above everything */
+}
+
+/* Simulate hover states for the checker */
+:deep(.btn.hover-state) {
+  background-color: var(--bs-btn-hover-bg) !important;
+  border-color: var(--bs-btn-hover-border-color) !important;
+  color: var(--bs-btn-hover-color) !important;
+}
+
+/* For link buttons, hover often only changes color and decoration */
+:deep(.btn-link.hover-state) {
+  background-color: transparent !important;
+  border-color: transparent !important;
+  color: var(--bs-btn-hover-color) !important;
+  text-decoration: underline !important;
+}
+
+/* For outline buttons, hover fills the background */
+:deep(.btn-outline-primary.hover-state) {
+  background-color: var(--bs-btn-hover-bg) !important;
+  color: var(--bs-btn-hover-color) !important;
 }
 </style>
